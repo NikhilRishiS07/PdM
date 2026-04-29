@@ -1,0 +1,40 @@
+================================================================================
+                   PREDICTIVE MAINTENANCE ANALYSIS REPORT
+================================================================================
+
+Dataset Information:
+  - Records analyzed: 2000
+  - Features engineered: cpu_total, mem_usage_percent, swap_usage_percent, 
+                        disk_total_bytes, disk_total_ops, load_avg
+
+Feature Engineering Results:
+  - cpu_total: Mean=0.1053, StdDev=0.0931
+  - mem_usage_percent: Mean=7.01%
+  - swap_usage_percent: Mean=0%
+
+Anomaly Detection:
+  - Method: Statistical (Z-score > 3-sigma on cpu_total)
+  - Anomalies detected: 25 (1.25%)
+  - Normal records: 1975
+
+Model Performance (Anomaly as Predictor of Failure):
+  - Accuracy: 98.75%
+  - Precision: 0%
+  - Recall: 0%
+  
+Confusion Matrix:
+  Predicted Anomaly | Actual Failure | Count
+  ------------------|----------------|-------
+  Yes               | Yes (TP)       | 0
+  Yes               | No (FP)        | 25
+  No                | Yes (FN)       | 0
+  No                | No (TN)        | 1975
+
+Top 5 Anomalies (by score):
+  Score: 10.2479, CPU: 1.0595, Server-Up: 2
+  Score: 9.6626, CPU: 1.005, Server-Up: 2
+  Score: 9.0827, CPU: 0.951, Server-Up: 2
+  Score: 6.1723, CPU: 0.68, Server-Up: 2
+  Score: 5.7642, CPU: 0.642, Server-Up: 2
+
+================================================================================
