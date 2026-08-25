@@ -1,33 +1,68 @@
-# Predictive Maintenance for Server Metrics
+Cloud System Anomaly Detection Using Machine Learning
 
-This workspace contains a dataset and a production-ready Python pipeline for predictive maintenance using server monitoring time series.
+A machine learning-based approach for detecting anomalous behavior in cloud system metrics. The project explores multiple unsupervised anomaly detection techniques and compares their ability to identify different types of abnormal system behavior.
 
-## Files
+Overview
 
-- `system-1.csv` — downloaded server metrics dataset from the public `westermo/test-system-performance-dataset` repository.
-- `pdm_server_maintenance.py` — modular pipeline for feature engineering, normalization, time-series sequence creation, LSTM/GRU modeling, Isolation Forest anomaly detection, and visualization.
-- `requirements.txt` — required Python packages.
+The project analyzes system monitoring data containing CPU, memory, disk, load, and process-related metrics. Feature engineering is used to capture both system state and temporal behavior before applying multiple anomaly detection algorithms.
 
-## Usage
+Synthetic anomalies are introduced to enable controlled evaluation of the detection methods.
 
-1. Install dependencies:
+The project considers three anomaly patterns:
 
-```bash
-pip install -r requirements.txt
-```
+Point anomalies — sudden spikes in system metrics
+Contextual anomalies — unusual behavior relative to the surrounding system activity
+Collective anomalies — gradual changes or drift occurring across a sequence of observations
+Approach
+Load and explore the system monitoring dataset
+Engineer resource, temporal, and interaction-based features
+Generate labeled synthetic anomalies for evaluation
+Standardize the feature matrix
+Train multiple unsupervised anomaly detection models
+Compare model performance using precision, recall, F1-score, and ROC-AUC
+Analyze ROC and Precision-Recall curves
+Use SHAP to investigate feature contributions to Isolation Forest predictions
+Models
 
-2. Run the pipeline:
+The following anomaly detection techniques are evaluated:
 
-```bash
-python pdm_server_maintenance.py --dataset system-1.csv --window-size 20 --model-type gru --epochs 30
-```
+Isolation Forest
+Local Outlier Factor (LOF)
+One-Class SVM
+DBSCAN
+Feature Engineering
 
-3. If the dataset is missing, add `--download` to fetch it automatically:
+The model input includes features such as:
 
-```bash
-python pdm_server_maintenance.py --download
-```
+CPU utilization
+Memory utilization
+System load averages
+Process fork rate
+Rolling CPU statistics
+CPU rate of change
+Lagged CPU values
+Time-based features
+CPU-memory interaction
+Load imbalance
+Technologies
+Python
+Pandas
+NumPy
+Scikit-learn
+Matplotlib
+Seaborn
+SHAP
+Jupyter Notebook
+Evaluation
 
-## Output
+Models are evaluated against the injected anomaly labels using precision, recall, F1-score, and ROC-AUC. ROC and Precision-Recall curves are also generated to compare detection behavior across models.
 
-- `anomaly_timeline.png` — generated plot of anomaly score and server status over time.
+SHAP analysis is used to provide an interpretable view of which engineered features contribute most to Isolation Forest's anomaly detection decisions.
+
+Project Structure
+Cloud-Anomaly-Detection/
+├── Cloud_Anomaly_Detection_Research.ipynb
+└── README.md
+Purpose
+
+This project demonstrates the application of unsupervised machine learning, temporal feature engineering, anomaly simulation, model comparison, and explainable AI to a cloud-system monitoring problem.
